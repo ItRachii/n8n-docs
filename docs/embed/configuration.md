@@ -1,5 +1,4 @@
 ---
-#https://www.notion.so/n8n/Frontmatter-432c2b8dff1f43d4b1c8d20075510fe4
 title: n8n Embed Configuration
 description: Learn how to configure your n8n Embed.
 contentType: howto
@@ -33,10 +32,10 @@ Even though this is possible, it isn't recommended. Environment variables aren't
 
 #### Using REST APIs
 
-The recommended way is to load the data using a custom REST endpoint. Set the `CREDENTIALS_OVERWRITE_ENDPOINT` to a path under which this endpoint should be made available.
+The recommended way is to load the data using a custom REST endpoint. Set the `CREDENTIALS_OVERWRITE_ENDPOINT` to a path under which this endpoint should be made available. You can set `CREDENTIALS_OVERWRITE_ENDPOINT_AUTH_TOKEN` to require a token for accessing the endpoint. When this token is configured, the endpoint is only accessible if the token is included in the `Authorization` header as a `Bearer` token.
 
 /// note
-The endpoints can be called just one at a time for security reasons.
+The endpoint can be called just once for security reasons, unless `CREDENTIALS_OVERWRITE_ENDPOINT_AUTH_TOKEN` is set.
 ///
 
 For example:
@@ -72,6 +71,22 @@ For example:
 There are cases when credentials are based on others. For example, the `googleSheetsOAuth2Api` extends the `googleOAuth2Api`.
 In this case, you can set parameters on the parent credentials (`googleOAuth2Api`) for all child-credentials (`googleSheetsOAuth2Api`) to use.
 ///
+
+In case `CREDENTIALS_OVERWRITE_ENDPOINT_AUTH_TOKEN` is set to `secure-token`, the curl command will be:
+
+    ```sh
+    curl -H "Content-Type: application/json" -H "Authorization: Bearer secure-token" --data @oauth-credentials.json http://localhost:5678/send-credentials
+    ```
+
+#### Persistence
+
+To store credential overwrites in the database and propagate them automatically to all workers in multi-instance/queue mode, enable:
+
+```sh
+export CREDENTIALS_OVERWRITE_PERSISTENCE=true
+```
+
+When enabled, n8n stores the encrypted overwrites in the `settings` table and broadcasts a `reload-overwrite-credentials` event so that workers reload the latest values. When disabled, overwrites remain in memory on the process that loaded them and aren't propagated to workers or preserved across restarts.
 
 ## Environment variables
 
@@ -112,6 +127,8 @@ It's possible to define external hooks that n8n executes whenever a specific ope
 | `workflow.postExecute` | `[run: IRun, workflowData: IWorkflowBase]` | Called after a workflow gets executed. |
 | `workflow.preExecute` | `[workflow: Workflow: mode: WorkflowExecuteMode]` | Called before a workflow gets executed. Allows you to count or limit the number of workflow executions. |
 | `workflow.update` | `[workflowData: IWorkflowBase]` | Called before an existing workflow gets saved. |
+| `workflow.afterArchive` | `[workflowId: string]` | Called after you archive a workflow. |
+| `workflow.afterUnarchive` | `[workflowId: string]` | Called after you restore a workflow from the archive. |
 
 ### Registering hooks
 
@@ -122,9 +139,9 @@ You can set the variable to a single file:
 
 `EXTERNAL_HOOK_FILES=/data/hook.js`
 
-Or to contain multiple files separated by a semicolon:
+Or to contain multiple files separated by a colon:
 
-`EXTERNAL_HOOK_FILES=/data/hook1.js;/data/hook2.js`
+`EXTERNAL_HOOK_FILES=/data/hook1.js:/data/hook2.js`
 
 ### Backend hook files
 

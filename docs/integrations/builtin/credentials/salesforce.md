@@ -1,5 +1,4 @@
 ---
-#https://www.notion.so/n8n/Frontmatter-432c2b8dff1f43d4b1c8d20075510fe4
 title: Salesforce credentials
 description: Documentation for Salesforce credentials. Use these credentials to authenticate Salesforce in n8n, a workflow automation platform.
 contentType: [integration, reference]
@@ -20,11 +19,11 @@ You can use these credentials to authenticate the following nodes:
 
 ## Related resources
 
-Refer to [Salesforce's developer documentation](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm){:target=_blank .external-link} for more information about the service.
+Refer to [Salesforce's developer documentation](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm) for more information about the service.
 
 ## Using JWT
 
-To configure this credential, you'll need a [Salesforce](https://www.salesforce.com/){:target=_blank .external-link} account and:
+To configure this credential, you'll need a [Salesforce](https://www.salesforce.com/) account and:
 
 - Your **Environment Type** (Production or Sandbox)
 - A **Client ID**: Generated when you create a connected app.
@@ -36,10 +35,10 @@ To set things up, first you'll create a private key and certificate, then a conn
 1. In n8n, select the **Environment Type** for your connection. Choose the option that best describes your environment from **Production** or **Sandbox**.
 2. Enter your Salesforce **Username**.
 1. Log in to your org in Salesforce.
-2. You'll need a private key and certificate issued by a certification authority. Use your own key/cert or use OpenSSL to create a key and a self-signed digital certificate. Refer to the Salesforce [Create a Private Key and Self-Signed Digital Certificate documentation](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_auth_key_and_cert.htm){:target=_blank .external-link} for instructions on creating your own key and certificate.
+2. You'll need a private key and certificate issued by a certification authority. Use your own key/cert or use OpenSSL to create a key and a self-signed digital certificate. Refer to the Salesforce [Create a Private Key and Self-Signed Digital Certificate documentation](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_auth_key_and_cert.htm) for instructions on creating your own key and certificate.
 3. From **Setup** in Salesforce, enter `App Manager` in the Quick Find box, then select **App Manager**.
 3. On the App Manager page, select **New Connected App**.
-4. Enter the required **Basic Info** for your connected app, including a **Name** and **Contact Email address**. Refer to Salesforce's [Configure Basic Connected App Settings](https://help.salesforce.com/s/articleView?id=sf.connected_app_create_basics.htm&type=5){:target=_blank .external-link} documentation for more information.
+4. Enter the required **Basic Info** for your connected app, including a **Name** and **Contact Email address**. Refer to Salesforce's [Configure Basic Connected App Settings](https://help.salesforce.com/s/articleView?id=sf.connected_app_create_basics.htm&type=5) documentation for more information.
 5. Check the box to **Enable OAuth Settings**.
 6. For the **Callback URL**, enter `http://localhost:1717/OauthRedirect`.
 7. Check the box to **Use digital signatures**.
@@ -71,12 +70,12 @@ These steps are what's required on the n8n side. Salesforce recommends setting r
 21. Select **Manage Profiles**, select the profiles that are pre-authorized to use this connected app, and select **Save**.
 22. Select **Manage Permission Sets** to select the permission sets. Create permission sets if necessary.
 
-Refer to Salesforce's [Create a Connected App in Your Org](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_auth_connected_app.htm){:target=_blank .external-link} documentation for more information.
+Refer to Salesforce's [Create a Connected App in Your Org](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_auth_connected_app.htm) documentation for more information.
 
 
 ## Using OAuth2
 
-To configure this credential, you'll need a [Salesforce](https://www.salesforce.com/){:target=_blank .external-link} account.
+To configure this credential, you'll need a [Salesforce](https://www.salesforce.com/) account.
 
 --8<-- "_snippets/integrations/builtin/credentials/cloud-oauth-button.md"
 
@@ -89,7 +88,7 @@ If you're [self-hosting](/hosting/index.md) n8n, you'll need to configure OAuth2
 1. Log in to your org in Salesforce.
 3. From **Setup** in Salesforce, enter `App Manager` in the Quick Find box, then select **App Manager**.
 3. On the App Manager page, select **New Connected App**.
-4. Enter the required **Basic Info** for your connected app, including a **Name** and **Contact Email address**. Refer to Salesforce's [Configure Basic Connected App Settings](https://help.salesforce.com/s/articleView?id=sf.connected_app_create_basics.htm&type=5){:target=_blank .external-link} documentation for more information.
+4. Enter the required **Basic Info** for your connected app, including a **Name** and **Contact Email address**. Refer to Salesforce's [Configure Basic Connected App Settings](https://help.salesforce.com/s/articleView?id=sf.connected_app_create_basics.htm&type=5) documentation for more information.
 5. Check the box to **Enable OAuth Settings**.
 6. For the **Callback URL**, enter `http://localhost:1717/OauthRedirect`.
 9. Add these **OAuth scopes**:
@@ -112,4 +111,20 @@ These steps are what's required on the n8n side. Salesforce recommends setting r
 17. Review the **Refresh Token Policy** field. Salesforce recommends using expire refresh token after 90 days.
 18. In the **Session Policies** section, Salesforce recommends setting **Timeout Value** to 15 minutes.
 
-Refer to Salesforce's [Create a Connected App in Your Org](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_auth_connected_app.htm){:target=_blank .external-link} documentation for more information.
+Refer to Salesforce's [Create a Connected App in Your Org](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_auth_connected_app.htm) documentation for more information.
+
+## Common issues
+
+### Connection issues when authenticating with Salesforce from n8n Cloud
+
+If you encounter connection issues when authenticating with Salesforce from n8n Cloud, you might need to enable a specific system permission in your Salesforce user profiles:
+
+1. In Salesforce, go to **Setup**.
+2. In the **Quick Find** box, search for `Profiles`.
+3. Select the profile used by the user connecting to n8n (for example, System Administrator or the relevant profile).
+4. Click **Edit** or use the new **Profile** interface if it's available.
+5. Locate the **Administrative Permissions** section.
+6. Enable the checkbox for **Approve Connected Apps for Non-Admins**. This checkbox might also appear as **Approve apps connected not installed** depending on your Salesforce language or translation.
+7. Click **Save**.
+
+This permission is not enabled by default, even for administrator profiles, and must be manually activated. Without this permission, you might experience authentication failures when trying to connect n8n to Salesforce.

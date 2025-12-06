@@ -1,5 +1,4 @@
 ---
-#https://www.notion.so/n8n/Frontmatter-432c2b8dff1f43d4b1c8d20075510fe4
 title: Push and pull
 description: Send work to Git, and fetch work from Git to your instance.
 contentType: howto
@@ -15,10 +14,11 @@ This document assumes some familiarity with Git concepts and terminology. Refer 
 
 ## Fetch other people's work
 
-/// note | Restricted feature
-Not all users can fetch changes from Git. You must be an n8n instance owner or admin to push or pull changes.
+/// note | n8n roles control which users can pull (fetch) changes
+You must be an instance owner or instance admin to pull changes from git.
 ///
-To pull work from Git, select **Pull** <span class="inline-image">![Pull icon](/_images/source-control-environments/pull-icon.png){.off-glb}</span> in the main menu.
+
+To pull work from Git, select **Pull** <span class="n8n-inline-image">![Pull icon](/_images/source-control-environments/pull-icon.png){.off-glb}</span> in the main menu.
 
 --8<-- "_snippets/source-control-environments/push-pull-menu-state.md"
 
@@ -48,8 +48,8 @@ If you pull changes to an active workflow, n8n sets the workflow to inactive whi
 
 ## Send your work to Git
 
-/// note | Restricted feature
-Ordinary users can't send work to Git. You must be an n8n instance owner, admin, or project owner to send work to Git.
+/// note | n8n roles control which users can push changes
+You must be an instance owner, instance admin, or project admin to push changes to git.
 ///
 
 --8<-- "_snippets/source-control-environments/push.md"
@@ -59,7 +59,7 @@ Ordinary users can't send work to Git. You must be an n8n instance owner, admin,
 n8n commits the following to Git:
 
 * Workflows, including their tags and the email address of the workflow owner. You can choose which workflows to push.
-* Credential stubs (ID, name, type)
+* Credential stubs - ID, name and type. Any other fields are included only if they are [expressions](https://docs.n8n.io/code/expressions/). You can choose which credentials to push.
 * Variable stubs (ID and name)
 * Projects
 * Folders

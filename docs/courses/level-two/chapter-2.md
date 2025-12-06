@@ -1,5 +1,4 @@
 ---
-#https://www.notion.so/n8n/Frontmatter-432c2b8dff1f43d4b1c8d20075510fe4
 contentType: tutorial
 ---
 
@@ -158,7 +157,7 @@ To begin:
 		{
 		"parameters": {},
 		"id": "6bf64d5c-4b00-43cf-8439-3cbf5e5f203b",
-		"name": "When clicking \"Test workflow\"",
+		"name": "When clicking \"Execute workflow\"",
 		"type": "n8n-nodes-base.manualTrigger",
 		"typeVersion": 1,
 		"position": [
@@ -293,7 +292,7 @@ To begin:
 	],
 	"pinData": {},
 	"connections": {
-		"When clicking \"Test workflow\"": {
+		"When clicking \"Execute workflow\"": {
 		"main": [
 			[
 			{
